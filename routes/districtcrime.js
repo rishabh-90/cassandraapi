@@ -9,6 +9,17 @@ var client = new cassandra.Client({
     authProvider: new cassandra.auth.PlainTextAuthProvider('iccassandra', '1c9eaca403aa1a29bc9eacad113f7123'),
 });
 
+router.get('/', function(req, res){
+    var hour = req.param('hour');
+    var district = req.param('district');
+    client.execute("select * from assignment2.philadelphiacrime limit 1 ALLOW FILTERING; ", function(err, result){
+        if(err){
+            res.status(404).send({msg: err});
+        } else {
+            res.json(result);
+        }
+    });
+});
 
 router.get('/districtandcrime/', function(req, res){
     var hour = req.param('hour');
@@ -57,6 +68,11 @@ router.get('/countcrime/', function(req, res){
             res.json(result);
         }
     });
+});
+
+
+app.listen(80, function() {
+    console.log('Ready on port');
 });
 
 module.exports = router;
