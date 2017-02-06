@@ -10,9 +10,8 @@ var client = new cassandra.Client({
 });
 
 router.get('/', function(req, res){
-    var hour = req.param('hour');
-    var district = req.param('district');
-    client.execute("select * from assignment2.philadelphiacrime limit 1 ALLOW FILTERING; ", function(err, result){
+    
+    client.execute("select * from assignment2.philadelphiacrime ALLOW FILTERING; ", function(err, result){
         if(err){
             res.status(404).send({msg: err});
         } else {
@@ -68,11 +67,6 @@ router.get('/countcrime/', function(req, res){
             res.json(result);
         }
     });
-});
-
-
-app.listen(80, function() {
-    console.log('Ready on port');
 });
 
 module.exports = router;

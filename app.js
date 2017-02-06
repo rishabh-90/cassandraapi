@@ -26,4 +26,8 @@ app.use(function(err, req, res, next) {
  });
 });
 
+app.listen(80, function() {
+    console.log('Ready on port %d');
+});
+
 module.exports = app;
